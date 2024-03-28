@@ -24,6 +24,36 @@
 
     <main>
       <div class="box">
+        3/28/24<br>
+        wthan can has little a serious. as a treat<br>
+        <a href="https://youtu.be/s4dBvSj9Zpo">this cool video</a> by jay the dev guy on 2d characters in 3d worlds showed a cool optimization trick for 2d characters in 3d worlds<br>
+        by making a sprite look all messed up and evil like this:<br>
+        <img src="sdfpreshader.png"><br>
+        you can keep it at a relatively tiny size. this is 128x128
+        THEN with a shader, make it look really high res. heres that processed 128x128 image next to the original<br>
+        <img src="sdfcomparison.png" title="pretty good result for so much compression, right?"><br>
+        overlaying them, it seems the godot one is the tiniest bit skinnier. but otherwise pretty good result, nearly identical!<br>
+        this uses sdfs. which stands for something(?) distance fields. idk the s. idk what distance fields are! when i google it all the results are about 3d!<br>
+        but i got it working anyways. heres the script for the godot material, thats the main point of all this:<br>
+        <pre>shader_type spatial;
+
+uniform sampler2D outline;
+uniform sampler2D fill;
+uniform bool nofill;
+
+void fragment() {
+&#x9;vec4 soutline = texture(outline,UV);
+&#x9;soutline = smoothstep(.499,.5,soutline);
+&#x9;vec4 final = mix(texture(fill,UV),vec4(0,0,0,1),soutline.r);
+&#x9;if (nofill) {final = mix(vec4(0,0,0,0),vec4(0,0,0,1),soutline.r);}
+&#x9;ALBEDO = final.xyz;
+&#x9;ALPHA = final.a;
+}</pre>
+        sharing here cause i think its cool (and took me a while to figure out) plus on the teensients weensiest chance someones actually reading any of this it could be useful for their game<br>
+        also the compressed image was made in material maker, instructions on that <a href="https://classyham.com/Sharp-lines-with-Distance-Fields/">here</a>
+      </div><br><br>
+
+      <div class="box">
         3/15/24<br>
         stupid thing
         <img src="sliver.png" title="idk how to force the streamable embed to take up more space"><br>
@@ -37,11 +67,11 @@
         <img src="chain.png" title="3024 beautiful pixels">
       </div><br><br>
 
-      <div class="box">
+      <!-- <div class="box">
         11/10/23<br>
-        the comic from the gif on the comics page<br>
+        the comic from the gif on the comics page<br> what comics page?
         <img src="comicgifcomic.png" title="woah!">
-      </div>
+      </div> -->
     </main>
 
     <br>
